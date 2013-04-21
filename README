@@ -1,0 +1,64 @@
+		Readme for the Euclid kernel
+
+WHAT IS EUCLID?
+
+  The Euclid kernel is a hobby `toy OS' project written by myself (Chris
+  Cummins) in my free time as a means for better understanding the internals of
+  a computer operating system, by writing one. The name is a nod to Euclid's
+  Elements, a mathematical teatrise in which the author begins with a small
+  handful of axioms with which he methodically constructs a vast landscape of
+  proofs in geometry, far beyond the scope of his humble opening
+  statements. When writing an operating system kernel, the author must begin
+  with a small handful of tools ("wtf, not even standard libraries!?") and
+  construct a full system to bridge the gap between hardware and userspace
+  programs.
+
+  The intention of this project is not to produce a complete operating system,
+  but I am instead using it as an opportunity to explore some of the fascinating
+  challenges involved in kernel development, drawing inspiration heavily from
+  existing mature projects and UNIX-like systems, with particularly heavy credit
+  owed to the Linux kernel.
+
+ON WHAT HARDWARE DOES IT RUN?
+
+  The kernel is written for the x86 series of microprocessors, although an
+  effort has been made to abstract architecture-specific code and create an
+  interface for easily porting the software to other architectures.
+
+DOCUMENTATION:
+
+  Extra documentation files can be found under the Documentation directory.
+  Since the purpose of this project is educational, the source code is
+  documented quite heavily, withf comments being liberally used in an
+  explanatory fashion as well as to clarify intent. For some relevant reading
+  material that is not specific to the Euclid kernel, see the REFERENCES section
+  below.
+
+CONTRIBUTING:
+
+  This is a personal project and I do not anticipate that it should have a wide
+  userbase; however, as a developer, the small size of the project coupled with
+  the wide open challenges of creating a full operating system kernel offers
+  many hacking opportunties. Feel free to fork and send pull requests on GitHub,
+  using the main Euclid repository:
+
+	https://github.com/ChrisCummins/euclid
+
+  If you do not have a GitHub account, patches can be sent over email to
+  <chrisc.101@gmail.com>. Please use git format-patch (1) for generating these
+  patches.
+
+REFERENCES:
+
+  Below is a list of resources and texts that I have enjoyed and found useful
+  while working on this piece of software:
+
+	Love, Robert (2010). Linux Kernel Development: A thorough guide to the
+	design and implementation of the Linux kernel, 3rd edition. ISBN-13:
+	978-0672329463.
+
+	Malloy, James (2008). JamesM's kernel development tutorials. Available
+	at: http://www.jamesmolloy.co.uk/tutorial_html/
+
+	Kernighan, Brian W. and Ritche, Dennis (1988). The C Programming
+	Language, 2nd edition. ISBN-13: 978-0131103627.

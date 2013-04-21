@@ -1,0 +1,6 @@
+		Euclid kernel coding style
+
+For documentation regarding the coding style used in Euclid, see the Linux
+Coding Style in the kernel source tree. An online copy is available from:
+
+  https://github.com/torvalds/linux/blob/master/Documentation/CodingStyle

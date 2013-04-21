@@ -1,0 +1,43 @@
+#
+# Generic rules
+#
+*.a
+*.bin
+*.bz2
+*.elf
+*.gz
+*.lib
+*.lst
+*.o
+*.patch
+*.so
+*.so.*
+*.xz
+.*
+
+#
+# Common transient editor files
+#
+*.un~
+*~
+.*.s[a-w][a-z]
+.\#*
+.elc
+.netrwhist
+/.emacs.desktop
+/.emacs.desktop.lock
+Session.vim
+\#*\#
+auto-save-list
+tramp
+
+#
+# Top-level generic files
+#
+/TAGS
+/tags
+
+#
+# Git files that we don't want to ignore
+#
+!.gitignore
