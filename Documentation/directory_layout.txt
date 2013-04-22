@@ -1,0 +1,43 @@
+		Euclid kernel source directory structure
+
+This document describes the layout of the the Euclid kernel source tree; which
+is essentially a clone of Linux source structure. The rationale behind this is
+that it negates the need for learning a new project layout, and this reduced
+size source tree can help in getting comfortable browsing the much more
+intimidatingly large Linux tree.
+
+arch/
+	This directory contains subdirectories for each supported
+	architecture. All architecture-sepcific code goes in the respective
+	directory, e.g., arch/x86/.
+
+Documentation/
+	This directory contains documentation for Euclid.
+
+fs/
+	Implementations for filesystems and the virtual filesystem (VFS).
+
+include/
+	Kernel headers.
+
+init/
+	Kernel initialisation and boot-time code.
+
+lib/
+	Euclid library sources.
+
+kernel/
+	The core kernel components live in here.
+
+mm/
+	The memory managment subsystem.
+
+scripts/
+	A collection of helper scripts for building and working with the
+	sources. Contains scripts for emulating the kernel on a host system.
+
+usr/
+	The initial filesystem (initramfs) used in early boot process.
+
+toos/
+	A collection of helpful tools.
