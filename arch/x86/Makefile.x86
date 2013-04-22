@@ -1,0 +1,16 @@
+#
+#		The x86 kernel Makefile
+#
+# This file defines a build configuration for the x86 architecture.
+
+# Explicitly specify the architecture for cross compilation builds
+K_CFLAGS  += -march=i386 -m32
+K_ASFLAGS += -felf
+K_LDFLAGS += -melf_i386
+
+# Specify our link script
+K_LDFLAGS += -T$(ARCHDIR)/link.ld
+
+# Each architecture Makefile must include these targets
+k_build_arch:
+k_clean_arch:

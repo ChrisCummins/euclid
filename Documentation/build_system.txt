@@ -1,0 +1,39 @@
+		Euclid kernel build system
+
+This document describes the simple make build system used in the Euclid kernel,
+and described in the various project Makefiles.
+
+HOW DOES IT WORK?
+
+  The Euclid kernel employs a very unsophisticated build system. A single flat
+  build configuration described in this Makefile is responsible for building
+  the entire kernel. The kernel sources are discovered from a list of
+  specified directories and generic pattern rules describe the compilation
+  process. These rules and various helper routines can be found in the
+  scripts/Makefile.kernel file. An architecture specific Makefile provides the
+  actual kernel compilation target and any necessary compile-time
+  configuration.
+
+WHY NOT USE RECURSIVE MAKE?
+
+  For the size of the project, this simple flat Makefile system performs
+  acceptably. The majority of the compilation process is uniform and there is no
+  need for the fine grained control that a more structured build configuration
+  provides. As the kernel grows in size and features, it may be necessary to
+  revise and replace this primitive build system with a more thorough solution;
+  however, the main purpose of this project is to provide an educational kernel
+  implementation, so all expenditure on learning a highly customised build
+  system is wasted effort.
+
+CAVEATS OF THE BUILD SYSTEM:
+
+  A by-product of the simple build system is that there is a strong dependency
+  between the source files and the kernel headers. If a source file foo.c
+  declares #include <bar.h>, then it would be expected that the foo.c depends on
+  bar.h. In the case of Euclid, this dependency is not generated, so to ensure
+  coherency between the source and header files, each source file uses every
+  header file as a prerequisite. The downside to this is that updating a single
+  header file marks every source file as needing recompiling even if it does not
+  explicitly include it. While this is inefficient, it reduces the
+  sophistication of the Makefiles greatly, so is a known compromise of
+  simplicity over efficiency.

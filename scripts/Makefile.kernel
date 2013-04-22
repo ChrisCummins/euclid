@@ -1,0 +1,76 @@
+#
+#		The kernel build Makefile
+#
+# This Makefile defines targets and variables which are specific to the task of
+# building the kernel only. This file is included from the top Makefile and does
+# not need to be accessed directly.
+
+ARCHDIR  := arch/$(ARCH)
+
+# Where to place the final build
+K_TARGET := $(ARCHDIR)/boot/image
+
+# Kernel compiler switches. These specify additional switches in
+# addition to the globally assigned switches (CFLAGS, EXTRA_CFLAGS etc).
+K_ASFLAGS :=	$(ASFLAGS)		\
+		$(NULL)
+
+K_CFLAGS := 				\
+		$(CFLAGS)		\
+		-O0			\
+		-fno-builtin 		\
+		-fno-stack-protector	\
+		-g			\
+		-nostdinc		\
+		-nostdlib		\
+		-Iinclude		\
+		$(NULL)
+
+K_LDFLAGS :=	$(LDFLAGS)		\
+		$(NULL)
+
+EXTRA_K_ASFLAGS := $(EXTRA_ASFLAGS)
+EXTRA_K_CFLAGS  := $(EXTRA_CFLAGS)
+EXTRA_K_LDFLAGS := $(EXTRA_LDFLAGS)
+
+# Top level kernel directories
+k_dirs = 				\
+		arch/			\
+		Documentation/		\
+		fs/			\
+		include/		\
+		init/			\
+		kernel/			\
+		lib/			\
+		mm/			\
+		scripts/		\
+		tools/			\
+		$(NULL)
+
+# Get the kernel source files from the directories defined in k_dirs
+k_c_sources   := $(shell find $(k_dirs) -name '*.c')
+k_asm_sources := $(shell find $(k_dirs) -name '*.s')
+k_headers     := $(shell find $(k_dirs) -name '*.h')
+k_objects     := $(patsubst %.c,%.o,$(k_c_sources)) $(patsubst %.s,%.o,$(k_asm_sources))
+
+# Load the Makefile specific to our target architecture
+include arch/$(ARCH)/Makefile.$(ARCH)
+
+# Don't use the make built in targets
+%.o: %.c $(k_headers)
+	@echo '  CC       $<'
+	$(QUIET)$(CC) $(K_CFLAGS) $(EXTRA_K_CFLAGS) -c -o $@ $<
+
+%.o: %.s $(k_headers)
+	@echo '  AS       $<'
+	$(QUIET)$(AS) $(K_ASFLAGS) $(EXTRA_K_ASFLAGS) -o $@ $<
+
+$(K_TARGET): $(k_objects)
+	@echo '  LD       $@'
+	$(QUIET)$(LD) $(K_LDFLAGS) $(EXTRA_K_LDFLAGS) -o $(K_TARGET) $(k_objects)
+
+# The main kernel build targets to be called from the top Makefile
+k_build: k_build_arch $(K_TARGET)
+
+k_clean: k_clean_arch
+	$(QUIET)$(RM) $(k_objects) $(K_TARGET)
