@@ -1,0 +1,4 @@
+#
+# Don't track the bochs log
+#
+/log
