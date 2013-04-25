@@ -2,3 +2,8 @@
 # Don't track the bochs log
 #
 /log
+
+#
+# Generated boot image
+#
+/floppy.img

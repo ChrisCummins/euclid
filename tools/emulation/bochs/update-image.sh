@@ -6,6 +6,7 @@
 
 kernel="./arch/x86/boot/image"
 floppy="./tools/emulation/bochs/floppy.img"
+blank_floppy="./tools/emulation/bochs/blank-floppy.img"
 loopback="/dev/loop0"
 mountpoint="/mnt/euclid"
 
@@ -45,10 +46,14 @@ test "x$1" == "x--help" && { print_usage; exit 0; }
 test -z "$1" || kernel="$1"
 
 test -f "$kernel" || fatal "kernel image '$kernel' not found"
-test -f "$floppy" || fatal "floppy image '$floppy' not found"
 test ! -d "$mountpoint" || fatal "mountpoint '$mountpoint' already exists"
 
-print "updating image '$floppy'"
+test -f "$floppy" && {
+	print "updating image '$floppy'"
+} || {
+	print "creating '$floppy'"
+	cp "$blank_floppy" "$floppy"
+}
 
 create_loopback
 copy_data
