@@ -24,6 +24,7 @@ K_CFLAGS := 				\
 		-nostdinc		\
 		-nostdlib		\
 		-Iinclude		\
+		-I$(ARCHDIR)/include	\
 		$(NULL)
 
 K_LDFLAGS :=	$(LDFLAGS)		\

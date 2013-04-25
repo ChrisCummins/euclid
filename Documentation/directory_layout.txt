@@ -11,6 +11,9 @@ arch/
 	architecture. All architecture-sepcific code goes in the respective
 	directory, e.g., arch/x86/.
 
+arch/<arch>/include
+	Architecture-specific kernel headers.
+
 Documentation/
 	This directory contains documentation for Euclid.
 
