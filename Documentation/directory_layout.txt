@@ -11,6 +11,10 @@ arch/
 	architecture. All architecture-sepcific code goes in the respective
 	directory, e.g., arch/x86/.
 
+arch/<arch>/boot
+	This directory contains boot routines, and is the destination for the
+	final compiled image.
+
 arch/<arch>/include
 	Architecture-specific kernel headers.
 
