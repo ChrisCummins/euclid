@@ -8,7 +8,7 @@
 #ifndef _MULTIBOOT_H
 #define _MULTIBOOT_H
 
-#include <keywords.h>
+#include <macros.h>
 #include <types.h>
 
 /*

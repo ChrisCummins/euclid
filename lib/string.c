@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include <keywords.h>
+#include <macros.h>
 
 size_t strlen(const char *string)
 {

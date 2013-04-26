@@ -1,13 +1,15 @@
 /*
- * General purpose compiler keywords and routines.
+ * Common macros definitions
+ *
+ * This file must not include any other header files, as many will rely on it.
  */
 
-#ifndef _KEYWORDS_H
-#define _KEYWORDS_H
+#ifndef _MACROS_H
+#define _MACROS_H
 
 /* Helper macros */
-#define __stringify(x) #x
-#define __concat(x, y) __stringify(x ## y)
+#define __stringify(x)	#x
+#define __concat(x, y)	__stringify(x ## y)
 
 /*
  * Redefine the keywords disabled by -std option.
@@ -68,4 +70,4 @@
 # define __diagnostic_enable(x)
 #endif
 
-#endif /* _KEYWORDS_H */
+#endif /* _MACROS_H */

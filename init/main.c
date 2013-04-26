@@ -2,9 +2,9 @@
  * Common kernel entry point.
  */
 
+#include <macros.h>
 #include <multiboot.h>
 #include <types.h>
-#include <keywords.h>
 
 /*
  * This function is called by the architecture-specific boot proceedure, and
