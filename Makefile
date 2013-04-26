@@ -8,7 +8,7 @@
 .DEFAULT_GOAL = all
 
 # The architecture we're building for is...
-ARCH := x86
+ARCH ?= x86
 
 # Avoid funny character set dependencies
 unexport LC_ALL
