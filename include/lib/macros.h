@@ -8,7 +8,8 @@
 #define _MACROS_H
 
 /* Helper macros */
-#define __stringify(x)	#x
+#define __stringify(x)	___stringify(x)
+#define ___stringify(x) #x
 #define __concat(x, y)	__stringify(x ## y)
 
 /*
