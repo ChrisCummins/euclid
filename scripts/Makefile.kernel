@@ -22,7 +22,9 @@ K_CFLAGS := 				\
 		-fno-stack-protector	\
 		-g			\
 		-I$(ARCHDIR)/include	\
+		-I$(ARCHDIR)/include/lib \
 		-Iinclude		\
+		-Iinclude/lib		\
 		-nostdinc		\
 		-nostdlib		\
 		-O0			\
