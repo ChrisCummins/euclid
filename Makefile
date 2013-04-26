@@ -37,6 +37,7 @@ endif
 ASFLAGS :=	$(NULL)
 
 CFLAGS  := 				\
+		-fgnu89-inline		\
 		-pedantic-errors	\
 		-std=c89		\
 		-Wall			\
