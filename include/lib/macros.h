@@ -49,10 +49,10 @@
  * For more on diagnostic pragmas, see here:
  *     http://gcc.gnu.org/onlinedocs/gcc/Diagnostic-Pragmas.html
  */
-#if __GNUC__ >= 4 && __GNUC_MINOR__ >= 2
+#if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 2)
 # define __do_pragma(x)			_Pragma (#x)
 # define __diagnostic_pragma(x)		__do_pragma(GCC diagnostic x)
-# if __GNUC__ >= 4 && __GNUC_MINOR__ >= 6
+# if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)
 #  define __diagnostic_disable(x)			\
 	__diagnostic_pragma(push)			\
 	__diagnostic_pragma(ignored __concat(-W,x))
