@@ -7,6 +7,9 @@
 #ifndef _MACROS_H
 #define _MACROS_H
 
+/* Provide a means to test if a character is a digit. */
+#define is_digit(c) ((c) >= '0' && (c) <= '9')
+
 /* Helper macros */
 #define __stringify(x)	___stringify(x)
 #define ___stringify(x) #x

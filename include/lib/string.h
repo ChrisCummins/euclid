@@ -6,8 +6,7 @@
 #define _STRING_H
 
 #include <stddef.h>
-
-#define is_digit(c) ((c) >= '0' && (c) <= '9')
+#include <macros.h>
 
 /* Calculates the length of the string s, excluding the terminating null byte
  * ('\0'). It returns the number of bytes in the string. */
