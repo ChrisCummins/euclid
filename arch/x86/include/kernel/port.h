@@ -5,7 +5,7 @@
 #ifndef _PORT_H
 #define _PORT_H
 
-#include <asm.h>
+#include <macros.h>
 #include <types.h>
 
 /* Write a byte to the given port. */

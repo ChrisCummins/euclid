@@ -39,6 +39,30 @@
 # define unlikely(x)	(x)
 #endif
 
+/* Test if an address is within a given region of memory */
+#define __is_in_region(addr, base, end)		\
+	(((addr) >= (base)) && ((addr) <= (end)))
+
+/* Provide means for early exiting of a function if an expression is false */
+#ifdef __OPTIMIZE__
+/* TODO: Implement error messages for early returns once there's is a stderr
+ * equivalent.
+ */
+#define return_if_fail(x)			\
+	if (unlikely(!(x))) {			\
+		return;				\
+	}
+
+#define return_val_if_fail(x, val)		\
+	if (unlikely(!(x))) {			\
+		return (val);			\
+	}
+#else
+#define return_if_fail(x)
+#define return_val_if_fail(x, val)
+#endif /* __OPTIMIZE__ */
+
+
 /* Protect against compiling without GCC */
 #ifndef __GNUC__
 # define __attribute__
@@ -77,5 +101,52 @@
 # define __diagnostic_disable(x)
 # define __diagnostic_enable(x)
 #endif
+
+/*
+ * Provide a means for warning when a function's result is unused.
+ */
+#if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)
+# define __warn_unused_result __attribute__((warn_unused_result))
+#else
+# define __warn_unused_result
+#endif
+
+/* Provide a string identifying the current function */
+#ifdef __GNUC__
+# define STRFUNC	((const char*)(__PRETTY_FUNCTION__))
+#elif defined (__STDC_VERSION__) && __STDC_VERSION__ >= 19901L
+# define STRFUNC	((const char*)(__func__))
+#elif defined(_MSC_VER) && (_MSC_VER > 1300)
+# define STRFUNC	((const char*)(__FUNCTION__))
+#else
+# define STRFUNC	((const char*)("???"))
+#endif
+
+/* Provide a string identifying the current code position */
+#if defined (__GNUC__) && (__GNUC__ < 3)
+# define STRLOC							\
+	__FILE__ ":" __stringify(__LINE__) ":" __PRETTY_FUNCTION__ "()"
+#else
+# define STRLOC		__FILE__ ":" __stringify(__LINE__)
+#endif
+
+/* Provide integer boolean values */
+#ifndef FALSE
+# define FALSE (0)
+#endif
+
+#ifndef TRUE
+# define TRUE (!FALSE)
+#endif
+
+/* Provide convenient numerical operations */
+#define max(x,y)	(((x) > (y)) ? (x) : (y))
+#define min(x,y)	(((x) < (y)) ? (x) : (y))
+#define abs(x)		(((x) < 0) ? -(x) : (x))
+#define clamp(x, min, max) (((x) > (max)) ? (max) : (((x) < (min))	\
+						     ? (min) : (x)))
+
+/* Count the number of elements in a fixed-size array. */
+#define n_elements(a) (sizeof(a) / sizeof((a)[0])
 
 #endif /* _MACROS_H */
