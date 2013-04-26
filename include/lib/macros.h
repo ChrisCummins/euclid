@@ -25,8 +25,15 @@
 
 /* Branch prediction performance optimisations */
 #if defined(__GNUC__) && (__GNUC__ > 2) && defined(__OPTIMIZE__)
-# define likely(x)	__builtin_expect((x),1)
-# define unlikely(x)	__builtin_expect((x),0)
+# define __boolean_expression(x)		\
+	({ int __boolean;			\
+	   if (x)				\
+		   __boolean = 1;		\
+	   else					\
+		   __boolean = 0;		\
+	   __boolean; })
+# define likely(x)	__builtin_expect(__boolean_expression(x), 1)
+# define unlikely(x)	__builtin_expect(__boolean_expression(x), 0)
 #else
 # define likely(x)	(x)
 # define unlikely(x)	(x)
