@@ -21,26 +21,30 @@
  *   See: http://gcc.gnu.org/onlinedocs/gcc-4.3.4/gcc/Alternate-Keywords.html
  */
 #ifdef __GNUC__
-# define asm		__asm__
-# define inline		__inline__
-# define typeof		__typeof__
-#endif
+#define asm		__asm__
+#define inline		__inline__
+#define typeof		__typeof__
+#endif /* __GNUC__ */
 
 /* Branch prediction performance optimisations */
 #if defined(__GNUC__) && (__GNUC__ > 2) && defined(__OPTIMIZE__)
-# define __boolean_expression(x)		\
+
+#define __boolean_expression(x)			\
 	({ int __boolean;			\
 	   if (x)				\
 		   __boolean = 1;		\
 	   else					\
 		   __boolean = 0;		\
 	   __boolean; })
-# define likely(x)	__builtin_expect(__boolean_expression(x), 1)
-# define unlikely(x)	__builtin_expect(__boolean_expression(x), 0)
-#else
-# define likely(x)	(x)
-# define unlikely(x)	(x)
-#endif
+#define likely(x)	__builtin_expect(__boolean_expression(x), 1)
+#define unlikely(x)	__builtin_expect(__boolean_expression(x), 0)
+
+#else /* not GNUC */
+
+#define likely(x)	(x)
+#define unlikely(x)	(x)
+
+#endif /* __GNUC__ */
 
 /* Test if an address is within a given region of memory */
 #define __is_in_region(addr, base, end)		\
@@ -68,7 +72,7 @@
 
 /* Protect against compiling without GCC */
 #ifndef __GNUC__
-# define __attribute__
+#define __attribute__
 #endif
 
 /* Diagnostic pragmas.
@@ -85,61 +89,70 @@
  *     http://gcc.gnu.org/onlinedocs/gcc/Diagnostic-Pragmas.html
  */
 #if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 2)
-# define __do_pragma(x)			_Pragma (#x)
-# define __diagnostic_pragma(x)		__do_pragma(GCC diagnostic x)
-# if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)
-#  define __diagnostic_disable(x)			\
+
+#define __do_pragma(x)			_Pragma (#x)
+#define __diagnostic_pragma(x)		__do_pragma(GCC diagnostic x)
+
+#if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)
+
+#define __diagnostic_disable(x)				\
 	__diagnostic_pragma(push)			\
 	__diagnostic_pragma(ignored __concat(-W,x))
-#  define __diagnostic_enable(x)		\
+#define __diagnostic_enable(x)				\
 	__diagnostic_pragma(pop)
-# else /* 4.2 < GCC version > 4.2 */
-#  define __diagnostic_disable(x)		\
+
+#else /* 4.2 < GCC version > 4.2 */
+
+#define __diagnostic_disable(x)				\
 	__diagnostic_pragma(ignored __concat(-W,x))
-#  define __diagnostic_enable(x)		\
+#define __diagnostic_enable(x)				\
 	__diagnostic_pragma(warning __concat(-W,x))
-# endif
+
+#endif
+
 #else /* GCC version < 4.2, or undefined */
+
 # define __do_pragma(x)
 # define __diagnostic_disable(x)
 # define __diagnostic_enable(x)
-#endif
+
+#endif /* __GNUC__ */
 
 /*
  * Provide a means for warning when a function's result is unused.
  */
 #if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)
-# define __warn_unused_result __attribute__((warn_unused_result))
+#define __warn_unused_result __attribute__((warn_unused_result))
 #else
-# define __warn_unused_result
+#define __warn_unused_result
 #endif
 
 /* Provide a string identifying the current function */
 #ifdef __GNUC__
-# define STRFUNC	((const char*)(__PRETTY_FUNCTION__))
+#define STRFUNC		((const char*)(__PRETTY_FUNCTION__))
 #elif defined (__STDC_VERSION__) && __STDC_VERSION__ >= 19901L
-# define STRFUNC	((const char*)(__func__))
+#define STRFUNC		((const char*)(__func__))
 #elif defined(_MSC_VER) && (_MSC_VER > 1300)
-# define STRFUNC	((const char*)(__FUNCTION__))
+#define STRFUNC		((const char*)(__FUNCTION__))
 #else
-# define STRFUNC	((const char*)("???"))
-#endif
+#define STRFUNC		((const char*)("???"))
+#endif /* __GNUC__ */
 
 /* Provide a string identifying the current code position */
 #if defined (__GNUC__) && (__GNUC__ < 3)
-# define STRLOC							\
+#define STRLOC							\
 	__FILE__ ":" __stringify(__LINE__) ":" __PRETTY_FUNCTION__ "()"
 #else
-# define STRLOC		__FILE__ ":" __stringify(__LINE__)
-#endif
+#define STRLOC		__FILE__ ":" __stringify(__LINE__)
+#endif /* __GNUC__ */
 
 /* Provide integer boolean values */
 #ifndef FALSE
-# define FALSE (0)
+#define FALSE (0)
 #endif
 
 #ifndef TRUE
-# define TRUE (!FALSE)
+#define TRUE (!FALSE)
 #endif
 
 /* Provide convenient numerical operations */
