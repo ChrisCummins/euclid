@@ -1,0 +1,53 @@
+		Running Euclid kernel emulations
+
+This document describes the ways in which the Euclid kernel can be emulated on
+host systems.
+
+BOCHS:                                             http://bochs.sourceforge.net/
+
+  WHAT IS BOCHS?
+
+	Bochs is a portable Intel Architecture 32 (x86) emulator. Builds are
+	available for many Linux distributions, check your package manager for a
+	release.
+
+  BUILDING EUCLID FOR BOCHS:
+
+	An x86 build of Euclid will generate a compatible 32-bit image for
+	running with bochs. In order to use the image, a bootable image must be
+	created. The directory `tools/emulation/bochs/' provides a pre-built
+	template loaded with the GRUB bootloader which is suitable for this
+	purpose. The directory also contains scripts which automate the process
+	of process of generating a bootable image and executing bochs. In
+	summary:
+
+	tools/emulation/bochs/update-image.sh
+		Creates a bootable image file using a compiled kernel image. If
+		no existing image is found, the blank-floppy.img is used to
+		create one.
+
+	tools/emulation/bochs/run-bochs.sh
+		Executes bochs with a default configuration file.
+
+	tools/emulation/bochs/mount-image.sh
+	tools/emulation/bochs/umount-image.sh
+		Mounts and unmounts the image file to /mnt/euclid, respectively.
+
+  RUNNING EUCLID WITH BOCHS:
+
+	The euclid Makefile defines a 'bochs' rule, which automates the process
+	of building, preparing and booting a suitable kernel. Execute:
+
+		$ make ARCH=x86 bochs
+
+	To perform this task manually, first create an x86 kernel build:
+
+		$ make ARCH=x86 all
+
+	Then create a bootable image from this kernel:
+
+		$ ./tools/emulation/bochs/update-image.sh
+
+	Finally, this image can be run with:
+
+		$ ./tools/emulation/bochs/run-bochs.sh
