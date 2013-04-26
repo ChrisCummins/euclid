@@ -61,6 +61,9 @@ export MAKEFLAGS
 # Load the kernel Makefile
 include scripts/Makefile.kernel
 
+# Load the emulation Makefiles
+include tools/emulation/bochs/Makefile
+
 all: kernel
 
 kernel: k_build
