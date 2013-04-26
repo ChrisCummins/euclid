@@ -23,7 +23,7 @@
 #endif
 
 /* Branch prediction performance optimisations */
-#ifdef __GNUC__
+#if defined(__GNUC__) && (__GNUC__ > 2) && defined(__OPTIMIZE__)
 # define likely(x)	__builtin_expect((x),1)
 # define unlikely(x)	__builtin_expect((x),0)
 #else
