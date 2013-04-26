@@ -12,6 +12,4 @@
 #include <x86-types.h>
 #endif
 
-typedef unsigned int size_t;
-
 #endif /* _TYPES_H */
