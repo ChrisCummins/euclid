@@ -28,6 +28,27 @@ K_CFLAGS := 				\
 		-nostdinc		\
 		-nostdlib		\
 		-O0			\
+		-Waggregate-return	\
+		-Wbad-function-cast	\
+		-Wcast-align		\
+		-Wcast-qual		\
+		-Wfloat-equal		\
+		-Wframe-larger-than=64	\
+		-Winline		\
+		-Wjump-misses-init	\
+		-Wlarger-than=16	\
+		-Wlogical-op		\
+		-Wmissing-prototypes	\
+		-Wnested-externs	\
+		-Wno-div-by-zero	\
+		-Wno-main		\
+		-Wold-style-definition	\
+		-Wpacked		\
+		-Wpadded		\
+		-Wredundant-decls	\
+		-Wstack-usage=64	\
+		-Wstrict-prototypes	\
+		-Wwrite-strings		\
 		$(NULL)
 
 K_LDFLAGS :=	$(LDFLAGS)		\
