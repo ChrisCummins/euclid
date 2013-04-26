@@ -17,15 +17,15 @@ K_ASFLAGS :=	$(ASFLAGS)		\
 
 K_CFLAGS := 				\
 		$(CFLAGS)		\
-		-O0			\
+		-D__ARCH_$(ARCH)__      \
 		-fno-builtin 		\
 		-fno-stack-protector	\
 		-g			\
+		-I$(ARCHDIR)/include	\
+		-Iinclude		\
 		-nostdinc		\
 		-nostdlib		\
-		-Iinclude		\
-		-I$(ARCHDIR)/include	\
-		-D__ARCH_$(ARCH)__      \
+		-O0			\
 		$(NULL)
 
 K_LDFLAGS :=	$(LDFLAGS)		\
