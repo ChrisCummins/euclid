@@ -81,7 +81,8 @@ static inline void blank_char(tty_char_t *tty_char_p)
 {
 	assert(is_in_tty_memory_region(tty_char_p));
 
-	return_if_fail(tty_initialised);
+	if (unlikely(!tty_initialised))
+		return;
 
 	*tty_char_p = char_to_tty_char(' ',
 				       TTY_COLOR_DEFAULT_BG,
@@ -108,7 +109,8 @@ static void scroll_line(void)
 {
 	int i;
 
-	return_if_fail(tty_initialised);
+	if (unlikely(!tty_initialised))
+		return;
 
 	/* duplicate each line onto the preceding one */
 	for (i = 0; i < TTY_HEIGHT - 1; i++) {
@@ -141,12 +143,12 @@ inline void tty_reset(void)
 int init_tty(void *data)
 {
 	/* protect against re-initialising */
-	return_val_if_fail(!tty_initialised, tty_initialised);
+	if (likely(!tty_initialised)) {
+		tty_initialised = 1;
 
-	tty_initialised = 1;
-
-	/* prepare the screen */
-	tty_reset();
+		/* prepare the screen */
+		tty_reset();
+	}
 
 	return tty_initialised;
 }
@@ -174,7 +176,8 @@ inline int test_tty(void *data)
 
 void tty_clear_screen(void)
 {
-	return_if_fail(tty_initialised);
+	if (unlikely(!tty_initialised))
+		return;
 
 	memset(TTY_MEMORY, 0x00, TTY_SIZE * sizeof(tty_char_t));
 
@@ -187,7 +190,8 @@ void tty_putc(const char c)
 {
 	tty_char_t *c_p;
 
-	return_if_fail(tty_initialised);
+	if (unlikely(!tty_initialised))
+		return;
 
 	c_p = TTY_MEMORY + get_index_for_pos(cursor.y, cursor.x);
 
