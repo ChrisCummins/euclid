@@ -77,29 +77,31 @@
 
 /* Diagnostic pragmas.
  *
- * This provides the two macros __diagnostic_disable(x) and __diagnostic_enable
- * for disabling and enabling warnings, respectively. These should not be used
+ * This provides the various macros for enabling and disabling warnings,
+ * printing messages and other compile-time activities. These should not be used
  * without good cause and care should be made to ensure that each disabling of a
  * warning is a matched with an enable for the same warning after use.
  *
  * Note that these cannot be used to disable errors. Compiler errors should be
  * resolved, not ignored.
  *
- * For more on diagnostic pragmas, see here:
+ * For more on pragmas, see here:
  *     http://gcc.gnu.org/onlinedocs/gcc/Diagnostic-Pragmas.html
  */
 #if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 2)
 
 #define __do_pragma(x)			_Pragma (#x)
 #define __diagnostic_pragma(x)		__do_pragma(GCC diagnostic x)
+#define __message_pragma(x)		__do_pragma(message __stringify(x))
 
 #if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)
 
 #define __diagnostic_disable(x)				\
 	__diagnostic_pragma(push)			\
 	__diagnostic_pragma(ignored __concat(-W,x))
-#define __diagnostic_enable(x)				\
-	__diagnostic_pragma(pop)
+#define __diagnostic_enable(x)		__diagnostic_pragma(pop)
+#define __build_message(x)		__message_pragma(x)
+#define __build_warning(x)		__message_pragma(WARNING: x)
 
 #else /* 4.2 < GCC version > 4.2 */
 
@@ -107,14 +109,18 @@
 	__diagnostic_pragma(ignored __concat(-W,x))
 #define __diagnostic_enable(x)				\
 	__diagnostic_pragma(warning __concat(-W,x))
+#define __build_message(x)		__message_pragma(x)
+#define __build_warning(x)		__message_pragma(WARNING: x)
 
 #endif
 
 #else /* GCC version < 4.2, or undefined */
 
-# define __do_pragma(x)
-# define __diagnostic_disable(x)
-# define __diagnostic_enable(x)
+#define __do_pragma(x)
+#define __diagnostic_disable(x)
+#define __diagnostic_enable(x)
+#define __build_message(x)
+#define __build_warning(x)
 
 #endif /* __GNUC__ */
 
