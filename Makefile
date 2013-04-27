@@ -74,9 +74,11 @@ clean: k_clean
 .PHONY: tags TAGS help
 
 tags:
+	@echo '  tags'
 	$(QUIET)$(SHELL) ./scripts/tags.sh tags .
 
 TAGS:
+	@echo '  TAGS'
 	$(QUIET)$(SHELL) ./scripts/tags.sh TAGS .
 
 help:
