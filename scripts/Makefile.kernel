@@ -10,6 +10,22 @@ ARCHDIR  := arch/$(ARCH)
 # Where to place the final build
 K_TARGET := $(ARCHDIR)/boot/image
 
+# A list of kernel defines
+k_defines =				\
+		__ARCH_$(ARCH)__      	\
+		$(NULL)
+
+# Kernel include directories
+k_includes =				\
+		$(ARCHDIR)/include	\
+		$(ARCHDIR)/include/lib 	\
+		include			\
+		include/lib		\
+		$(NULL)
+
+k_define_flags  = $(patsubst %,-D%,$(k_defines))
+k_include_flags = $(patsubst %,-I%,$(k_includes))
+
 # Kernel compiler switches. These specify additional switches in
 # addition to the globally assigned switches (CFLAGS, EXTRA_CFLAGS etc).
 K_ASFLAGS :=	$(ASFLAGS)		\
@@ -17,14 +33,11 @@ K_ASFLAGS :=	$(ASFLAGS)		\
 
 K_CFLAGS := 				\
 		$(CFLAGS)		\
-		-D__ARCH_$(ARCH)__      \
+		$(k_define_flags)	\
+		$(k_include_flags)	\
 		-fno-builtin 		\
 		-fno-stack-protector	\
 		-g			\
-		-I$(ARCHDIR)/include	\
-		-I$(ARCHDIR)/include/lib \
-		-Iinclude		\
-		-Iinclude/lib		\
 		-nostdinc		\
 		-nostdlib		\
 		-O0			\
