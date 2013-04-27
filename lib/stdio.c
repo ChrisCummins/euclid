@@ -88,16 +88,16 @@ void putchar(const char c)
 	tty_putc(c);
 }
 
-int nvprintf(size_t size, const char *format, va_list ap)
+int nvprintf(size_t size, const char *fmt, va_list ap)
 {
 	u32 i;
 
-	return_val_if_fail(format != NULL, -1);
+	return_val_if_fail(fmt != NULL, -1);
 
 	for (i = 0; i < size; i++) {
-		if (format[i] == '%') {
-			if ((i + 1) < size && format[i+1] != '%') {
-				char conv = format[i+1];
+		if (fmt[i] == '%') {
+			if ((i + 1) < size && fmt[i+1] != '%') {
+				char conv = fmt[i+1];
 
 				switch (conv) {
 
@@ -155,49 +155,49 @@ int nvprintf(size_t size, const char *format, va_list ap)
 				}
 			}
 		} else {
-			putchar(format[i]);
+			putchar(fmt[i]);
 		}
 	}
 	return 0;
 }
 
-int nprintf(size_t size, const char *format, ...)
+int nprintf(size_t size, const char *fmt, ...)
 {
 	int ret;
 	va_list ap;
 
-	va_start(ap, format);
-	ret = nvprintf(size, format, ap);
+	va_start(ap, fmt);
+	ret = nvprintf(size, fmt, ap);
 	va_end(ap);
 
 	return ret;
 }
 
-int vprintf(const char *format, va_list ap)
+int vprintf(const char *fmt, va_list ap)
 {
-	return nvprintf(strlen(format), format, ap);
+	return nvprintf(strlen(fmt), fmt, ap);
 }
 
-int printf(const char *format, ...)
+int printf(const char *fmt, ...)
 {
 	int ret;
 	va_list ap;
 
-	va_start(ap, format);
-	ret = vprintf(format, ap);
+	va_start(ap, fmt);
+	ret = vprintf(fmt, ap);
 	va_end(ap);
 
 	return ret;
 }
 
 #ifndef NDEBUG
-int debug(const char *format, ...)
+int debug(const char *fmt, ...)
 {
 	int ret;
 	va_list ap;
 
-	va_start(ap, format);
-	ret = vprintf(format, ap);
+	va_start(ap, fmt);
+	ret = vprintf(fmt, ap);
 	va_end(ap);
 
 	/* auto-append newline */
@@ -207,7 +207,7 @@ int debug(const char *format, ...)
 }
 #else
 __diagnostic_disable(unused-parameter)
-inline int debug(const char *format, ...)
+inline int debug(const char *fmt, ...)
 {
 return 0;
 }

@@ -62,16 +62,16 @@
  * 	%	A '%' is written. No argument is converted. The complete
  * 		conversion specification is '%%'.
  */
-int printf(const char *format, ...);
-int vprintf(const char *format, va_list ap);
-int nprintf(size_t size, const char *format, ...);
-int nvprintf(size_t size, const char *format, va_list ap);
+int printf(const char *fmt, ...);
+int vprintf(const char *fmt, va_list ap);
+int nprintf(size_t size, const char *fmt, ...);
+int nvprintf(size_t size, const char *fmt, va_list ap);
 
 /* Print a single character */
 void putchar(const char c);
 
 /* Provide convenient debugging calls. These are not disabled when NDEBUG is
  * defined at build time */
-int debug(const char *format, ...);
+int debug(const char *fmt, ...);
 
 #endif /* _STDIO_H */
