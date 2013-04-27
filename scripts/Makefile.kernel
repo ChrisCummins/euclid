@@ -24,8 +24,35 @@ k_includes =				\
 		include/lib		\
 		$(NULL)
 
+# Enabled compiler warnings
+k_warnings =				\
+		aggregate-return	\
+		bad-function-cast	\
+		cast-align		\
+		cast-qual		\
+		float-equal		\
+		frame-larger-than=128	\
+		inline			\
+		jump-misses-init	\
+		larger-than=64		\
+		logical-op		\
+		missing-prototypes	\
+		nested-externs		\
+		no-div-by-zero		\
+		no-main			\
+		no-unused-parameter	\
+		old-style-definition	\
+		packed			\
+		padded			\
+		redundant-decls		\
+		stack-usage=64		\
+		strict-prototypes	\
+		write-strings		\
+		$(NULL)
+
 k_define_flags  = $(patsubst %,-D%,$(k_defines))
 k_include_flags = $(patsubst %,-I%,$(k_includes))
+k_warning_flags = $(patsubst %,-W%,$(k_warnings))
 
 # Kernel compiler switches. These specify additional switches in
 # addition to the globally assigned switches (CFLAGS, EXTRA_CFLAGS etc).
@@ -36,34 +63,13 @@ K_CFLAGS := 				\
 		$(CFLAGS)		\
 		$(k_define_flags)	\
 		$(k_include_flags)	\
+		$(k_warning_flags)	\
 		-fno-builtin 		\
 		-fno-stack-protector	\
 		-g			\
 		-nostdinc		\
 		-nostdlib		\
 		-O0			\
-		-Waggregate-return	\
-		-Wbad-function-cast	\
-		-Wcast-align		\
-		-Wcast-qual		\
-		-Wfloat-equal		\
-		-Wframe-larger-than=64	\
-		-Winline		\
-		-Wjump-misses-init	\
-		-Wlarger-than=16	\
-		-Wlogical-op		\
-		-Wmissing-prototypes	\
-		-Wnested-externs	\
-		-Wno-div-by-zero	\
-		-Wno-main		\
-		-Wno-unused-parameter	\
-		-Wold-style-definition	\
-		-Wpacked		\
-		-Wpadded		\
-		-Wredundant-decls	\
-		-Wstack-usage=64	\
-		-Wstrict-prototypes	\
-		-Wwrite-strings		\
 		$(NULL)
 
 K_LDFLAGS :=	$(LDFLAGS)		\
