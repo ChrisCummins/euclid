@@ -169,6 +169,6 @@
 						     ? (min) : (x)))
 
 /* Count the number of elements in a fixed-size array. */
-#define n_elements(a) (sizeof(a) / sizeof((a)[0])
+#define n_elements(a) (sizeof(a) / sizeof((a)[0]))
 
 #endif /* _MACROS_H */
