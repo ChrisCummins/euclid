@@ -52,21 +52,23 @@
 
 /* Provide means for early exiting of a function if an expression is false */
 #ifndef NDEBUG
-/* TODO: Implement error messages for early returns once there's is a stderr
- * equivalent.
- */
-#define return_if_fail(x)			\
-	if (unlikely(!(x))) {			\
-		return;				\
+
+#define return_if_fail(x)						\
+	if (unlikely(!(x))) {						\
+		printf(STRLOC " return_if_fail(" #x ")");		\
+		return;							\
 	}
 
-#define return_val_if_fail(x, val)		\
-	if (unlikely(!(x))) {			\
-		return (val);			\
+#define return_val_if_fail(x, val)					\
+	if (unlikely(!(x))) {						\
+		printf(STRLOC " return_val_if_fail(" #x ", " #val")");	\
+		return (val);						\
 	}
 #else
+
 #define return_if_fail(x)
 #define return_val_if_fail(x, val)
+
 #endif /* __OPTIMIZE__ */
 
 
