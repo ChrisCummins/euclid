@@ -6,6 +6,7 @@
 #include <kernel/subsystems.h>
 
 #include <multiboot.h>
+#include <stdio.h>
 #include <types.h>
 
 /*
@@ -18,6 +19,8 @@ int k_main(struct multiboot *mboot, u32 stack)
 {
 	/* bring up the kernel subsystems */
 	init_subsystems();
+
+	printf("Hello, World!\n");
 
 	/* For now let's just push a value to EAX (x86). */
 	return (int)0xABCDEFCC;
