@@ -25,8 +25,6 @@ static inline void init_subsystems(void)
 	assert(init_tty());
 }
 
-__diagnostic_disable(unused-parameter)
-
 int k_main(struct multiboot *mboot, u32 stack)
 {
 	/* bring up the kernel subsystems */
@@ -35,5 +33,3 @@ int k_main(struct multiboot *mboot, u32 stack)
 	/* For now let's just push a value to EAX (x86). */
 	return (int)0xABCDEFCC;
 }
-
-__diagnostic_enable(unused-parameter)
