@@ -13,6 +13,7 @@ K_TARGET := $(ARCHDIR)/boot/image
 # A list of kernel defines
 k_defines =				\
 		__ARCH_$(ARCH)__      	\
+		DEBUG			\
 		$(NULL)
 
 # Kernel include directories
