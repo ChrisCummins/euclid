@@ -4,6 +4,7 @@
 #include <kernel/port.h>
 
 #include <assert.h>
+#include <stdio.h>
 #include <string.h>
 
 /* The physical dimensions of the TTY, in units of characters */
@@ -137,7 +138,7 @@ inline void tty_reset(void)
 	tty_reset_color();
 }
 
-int init_tty(void)
+int init_tty(void *data)
 {
 	/* protect against re-initialising */
 	return_val_if_fail(!tty_initialised, tty_initialised);
@@ -148,6 +149,27 @@ int init_tty(void)
 	tty_reset();
 
 	return tty_initialised;
+}
+
+inline int test_tty(void *data)
+{
+	int i = 1234, j = 0;
+
+	printf("printf() conversion characters:\n");
+	printf("\td: %d\n", -1234);
+	printf("\ti: %u\n", 1234);
+	printf("\tx: 0x%x, 0x%X\n", 1234);
+	printf("\tc: `%c'\n", 'c');
+	printf("\ts: `%s'\n", "Hello, World!");
+	printf("\tp: 0x%p, 0x%p\n", &i, &j);
+	printf("\n");
+
+	printf("debugging messages:\n");
+	debug("\tNDEBUG not defined");
+	debug("\tformat test: %d", 1234);
+	printf("\n");
+
+	return 0;
 }
 
 void tty_clear_screen(void)

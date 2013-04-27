@@ -64,6 +64,9 @@ void tty_set_fg_color(const enum tty_color_e color);
 
 /* Initialise the tty. Returns a zero on success. Non-successful initialisation
  * is considered an unrecoverable fault */
-int init_tty(void) __warn_unused_result;
+int init_tty(void *data) __warn_unused_result;
+
+/* Perform post-init tests */
+int test_tty(void *data);
 
 #endif /* _TTY_H */
