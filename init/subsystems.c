@@ -16,7 +16,7 @@ void init_subsystems(void)
 {
 	unsigned int i;
 
-	return_if_fail(subsystems_initialised);
+	return_if_fail(!subsystems_initialised);
 
 	for (i = 0; i < n_elements(s_table); i++) {
 		struct subsystem *sys = &s_table[i];
@@ -38,7 +38,7 @@ void init_subsystems(void)
 		if (sys->test) {
 			debug("\t\tSUBSYSTEM TESTS: %s [%u]\n", sys->name, i);
 
-			if (unlikely(!sys->test(sys->data))) {
+			if (unlikely(sys->test(sys->data))) {
 				panic(STRLOC " subsystem `%s' tests failed!",
 				      sys->name);
 			}
