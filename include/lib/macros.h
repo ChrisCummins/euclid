@@ -27,7 +27,7 @@
 #endif /* __GNUC__ */
 
 /* Branch prediction performance optimisations */
-#if defined(__GNUC__) && (__GNUC__ > 2) && defined(__OPTIMIZE__)
+#if defined(__GNUC__) && (__GNUC__ > 2) && defined(NDEBUG)
 
 #define __boolean_expression(x)			\
 	({ int __boolean;			\
@@ -51,7 +51,7 @@
 	(((addr) >= (base)) && ((addr) <= (end)))
 
 /* Provide means for early exiting of a function if an expression is false */
-#ifdef __OPTIMIZE__
+#ifndef NDEBUG
 /* TODO: Implement error messages for early returns once there's is a stderr
  * equivalent.
  */
