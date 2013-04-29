@@ -19,11 +19,13 @@ size_t strlen(const char *string)
 
 char *strcpy(char *dest, const char *src)
 {
+	char *d = dest;
+
 	do {
 		*dest++ = *src++;
 	} while (*src != '\0');
 
-	return dest;
+	return d;
 }
 
 char *strncpy(char *dest, const char *src, size_t n)
