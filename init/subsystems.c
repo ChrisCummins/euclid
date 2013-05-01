@@ -6,19 +6,17 @@
 
 static int subsystems_initialised = 0;
 
-/* Subsystems table */
-struct subsystem s_table[] = {
-	{ "tty", NULL, &init_tty, &test_tty, NULL }
-};
-
 /* Bring up the kernel subsystems */
 void init_subsystems(void)
 {
-	unsigned int i;
+	int i;
+	struct subsystem *s_table;
 
 	return_if_fail(!subsystems_initialised);
 
-	for (i = 0; i < n_elements(s_table); i++) {
+	s_table = s_table_base();
+
+	for (i = 0; i < s_table_size(); i++) {
 		struct subsystem *sys = &s_table[i];
 
 		assert(sys);
@@ -58,9 +56,13 @@ void init_subsystems(void)
 /* Bring down the kernel subsystems */
 void teardown_subsystems(void)
 {
-	unsigned int i = n_elements(s_table) - 1;
+	int i;
+	struct subsystem *s_table;
 
 	return_if_fail(!subsystems_initialised);
+
+	s_table = s_table_base();
+	i = s_table_size() - 1;
 
 	do {
 		struct subsystem *sys = &s_table[i];

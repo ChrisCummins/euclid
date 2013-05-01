@@ -5,8 +5,6 @@
 #ifndef _SUBSYSTEMS_H
 #define _SUBSYSTEMS_H
 
-#include <kernel/tty.h>
-
 #include <stddef.h>
 
 /* The subsystem object */
@@ -20,11 +18,11 @@ struct subsystem {
 	int (*teardown)(void *data);
 };
 
-/* System-wide table of subsystems. Each subsystem must be represented by an
- * entry in this table. Operations on this table are performed sequentially from
- * start to finish, so low level subsystems must appear first, there is no
- * automatic dependency resolution */
-extern struct subsystem s_table[];
+/* Return the address of the first segment descriptor in the s_table */
+struct subsystem *s_table_base(void);
+
+/* Return the number of segment descriptors in the s_table */
+int s_table_size(void);
 
 /* Bring up the kernel subsystems. Errors in this early stage of the bootprocess
  * are fatal and unrecoverable, so do as little initialisation as is possible to
