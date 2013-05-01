@@ -28,9 +28,11 @@ void init_subsystems(void)
 		if (sys->init) {
 			debug("\t\tINIT SUBSYSTEM: %s [%u]\n", sys->name, i);
 
-			if (unlikely(!sys->init(sys->data)))
-				panic(STRLOC " failed to initialise "
-				      "subsystem `%s'!", sys->name);
+			if (unlikely(sys->init(sys->data))) {
+				panic(STRLOC
+				      " failed to initialise subsystem `%s'!",
+				      sys->name);
+			}
 		}
 
 #ifdef DEBUG

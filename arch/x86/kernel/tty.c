@@ -143,14 +143,15 @@ inline void tty_reset(void)
 int init_tty(void *data)
 {
 	/* protect against re-initialising */
-	if (likely(!tty_initialised)) {
-		tty_initialised = 1;
+	if (unlikely(tty_initialised))
+		return -1;
 
-		/* prepare the screen */
-		tty_reset();
-	}
+	tty_initialised = 1;
 
-	return tty_initialised;
+	/* prepare the screen */
+	tty_reset();
+
+	return 0;
 }
 
 inline int test_tty(void *data)
