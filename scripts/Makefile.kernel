@@ -97,7 +97,7 @@ k_dirs = 				\
 k_c_sources   := $(shell find $(k_dirs) -name '*.c')
 k_asm_sources := $(shell find $(k_dirs) -name '*.s')
 k_headers     := $(shell find $(k_dirs) -name '*.h')
-k_objects     := $(patsubst %.c,%.o,$(k_c_sources)) $(patsubst %.s,%.o,$(k_asm_sources))
+k_objects     := $(patsubst %.s,%.o,$(k_asm_sources)) $(patsubst %.c,%.o,$(k_c_sources))
 
 # Check for a valid architecture or fail
 ifeq "$(wildcard $(ARCHDIR) )" ""
