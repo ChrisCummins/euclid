@@ -16,22 +16,22 @@
 /* The tty has 16 possible colours which can be assigned as foreground and
  * background colours. See tty_set_color() */
 enum tty_color_e {
-  TTY_COLOR_BLACK         = 0x0,
-  TTY_COLOR_DARK_GREY     = 0x8,
-  TTY_COLOR_BLUE          = 0x1,
-  TTY_COLOR_LIGHT_BLUE    = 0x9,
-  TTY_COLOR_GREEN         = 0x2,
-  TTY_COLOR_LIGHT_GREEN   = 0xA,
-  TTY_COLOR_CYAN          = 0x3,
-  TTY_COLOR_LIGHT_CYAN    = 0xB,
-  TTY_COLOR_RED           = 0x4,
-  TTY_COLOR_LIGHT_RED     = 0xC,
-  TTY_COLOR_MAGENTA       = 0x5,
-  TTY_COLOR_LIGHT_MAGNETA = 0xD,
-  TTY_COLOR_BROWN         = 0x6,
-  TTY_COLOR_LIGHT_BROWN   = 0xE,
-  TTY_COLOR_LIGHT_GREY    = 0x7,
-  TTY_COLOR_WHITE         = 0xF
+	TTY_COLOR_BLACK         = 0x0,
+	TTY_COLOR_DARK_GREY     = 0x8,
+	TTY_COLOR_BLUE          = 0x1,
+	TTY_COLOR_LIGHT_BLUE    = 0x9,
+	TTY_COLOR_GREEN         = 0x2,
+	TTY_COLOR_LIGHT_GREEN   = 0xA,
+	TTY_COLOR_CYAN          = 0x3,
+	TTY_COLOR_LIGHT_CYAN    = 0xB,
+	TTY_COLOR_RED           = 0x4,
+	TTY_COLOR_LIGHT_RED     = 0xC,
+	TTY_COLOR_MAGENTA       = 0x5,
+	TTY_COLOR_LIGHT_MAGNETA = 0xD,
+	TTY_COLOR_BROWN         = 0x6,
+	TTY_COLOR_LIGHT_BROWN   = 0xE,
+	TTY_COLOR_LIGHT_GREY    = 0x7,
+	TTY_COLOR_WHITE         = 0xF
 };
 
 /* Default color values */
