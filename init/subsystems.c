@@ -38,13 +38,15 @@ void init_subsystems(void)
 #ifdef DEBUG
 		/* run tests, if there are any */
 		if (sys->test) {
-			debug("\t\tSUBSYSTEM TESTS: %s [%u]\n", sys->name, i);
+			debug("\n\t\tSUBSYSTEM TESTS: %s [%u]\n", sys->name, i);
 
 			if (unlikely(sys->test(sys->data))) {
 				panic(STRLOC " subsystem `%s' tests failed!",
 				      sys->name);
 			}
 		}
+
+		debug (""); /* newline to separate subsystem's output */
 #else
 		printf("Initialised %s...\n", sys->name);
 #endif /* DEBUG */

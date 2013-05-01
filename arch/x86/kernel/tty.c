@@ -170,7 +170,6 @@ inline int test_tty(void *data)
 	printf("debugging messages:\n");
 	debug("\tNDEBUG not defined");
 	debug("\tformat test: %d", 1234);
-	printf("\n");
 
 	return 0;
 }
