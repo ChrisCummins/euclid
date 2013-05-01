@@ -34,7 +34,7 @@ k_warnings =				\
 		frame-larger-than=128	\
 		inline			\
 		jump-misses-init	\
-		larger-than=64		\
+		larger-than=2048	\
 		logical-op		\
 		missing-prototypes	\
 		nested-externs		\
@@ -45,7 +45,7 @@ k_warnings =				\
 		packed			\
 		padded			\
 		redundant-decls		\
-		stack-usage=64		\
+		stack-usage=128		\
 		strict-prototypes	\
 		write-strings		\
 		$(NULL)
