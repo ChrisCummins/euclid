@@ -20,6 +20,10 @@ int k_main(struct multiboot *mboot, u32 stack)
 	/* bring up the kernel subsystems */
 	init_subsystems();
 
+	printf("@@@@@@@@@@@@@@@@@@@@@@@@@"
+	       "@@@@@@@@@@ EUCLID @@@@@@@"
+	       "@@@@@@@@@@@@@@@@@@@@@@@@@"
+	       "@@@@@\n");
 	printf("Hello, World!\n");
 
 	/* For now let's just push a value to EAX (x86). */
