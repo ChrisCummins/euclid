@@ -1,5 +1,7 @@
 #include <kernel/subsystems.h>
 
+#include <kernel/gdt.h>
+#include <kernel/idt.h>
 #include <kernel/tty.h>
 
 #include <macros.h>
@@ -11,7 +13,9 @@
  * dependency resolution. The reverse order applies to subsystem teardowns
  */
 struct subsystem s_table[] = {
-	{ "tty", NULL, &init_tty, &test_tty, NULL }
+	{ "tty", NULL, &init_tty, &test_tty, NULL },
+	{ "gdt", NULL , &init_gdt, NULL, NULL },
+	{ "idt", NULL , &init_idt, NULL, NULL }
 };
 
 inline struct subsystem *s_table_base(void)
