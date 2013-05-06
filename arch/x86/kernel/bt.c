@@ -1,5 +1,6 @@
 #include <kernel/panic.h>
 
+#include <elf.h>
 #include <macros.h>
 #include <stdio.h>
 #include <types.h>
@@ -23,7 +24,8 @@ void bt(void) {
 	 * maximum value. */
 	while (ebp) {
 		eip = ebp + 1;
-		printf("#%d  [0x%x]\n", sf, *eip);
+		printf("#%d  [0x%x] %s\n",
+		       sf, *eip, symbol_from_elf(&kelf, *eip));
 		ebp = (u32*)*ebp;
 		sf++;
 
