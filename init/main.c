@@ -2,8 +2,9 @@
  * Common kernel entry point.
  */
 
-#include <kernel/tty.h>
+#include <kernel/panic.h>
 #include <kernel/subsystems.h>
+#include <kernel/tty.h>
 
 #include <multiboot.h>
 #include <stdio.h>
@@ -15,8 +16,12 @@
  */
 int k_main(struct multiboot *mboot, u32 stack);
 
+struct elf kelf;
+
 int k_main(struct multiboot *mboot, u32 stack)
 {
+	elf_from_mb(mboot, &kelf);
+
 	/* bring up the kernel subsystems */
 	init_subsystems();
 

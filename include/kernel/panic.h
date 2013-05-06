@@ -1,6 +1,8 @@
 #ifndef _PANIC_H
 #define _PANIC_H
 
+extern struct elf kelf;
+
 /* Walk up the stack and print the locations of each stack frame base */
 void bt(void);
 
