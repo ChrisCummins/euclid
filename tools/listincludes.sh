@@ -4,7 +4,12 @@
 #			  that include them
 #
 
-h_files="$(find . -name '*.h')"
+if [ -z "$1" ]; then
+	h_files="$(find . -name '*.h')"
+else
+	h_files="$@"
+fi
+
 c_files="$(find . -name '*.c')"
 
 for h in $h_files; do
