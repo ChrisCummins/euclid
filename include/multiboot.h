@@ -8,6 +8,7 @@
 #ifndef _MULTIBOOT_H
 #define _MULTIBOOT_H
 
+#include <elf.h>
 #include <macros.h>
 #include <types.h>
 
@@ -110,5 +111,9 @@ __diagnostic_enable(packed)
 #define MULTIBOOT_FLAG_LOADER    (1<<8)
 #define MULTIBOOT_FLAG_APM       (1<<9)
 #define MULTIBOOT_FLAG_VBE       (1<<10)
+
+/* Return the elf structure containing the symbol information from a multiboot
+ * header */
+void elf_from_mb(struct multiboot *mb, struct elf *elf);
 
 #endif /* _MULTIBOOT_H */
