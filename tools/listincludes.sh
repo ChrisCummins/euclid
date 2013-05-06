@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-#	headercheck.sh - List all header files and the sources
-#                        that include them
+#	listincludes.sh - List all header files and the sources
+#			  that include them
 #
 
 h_files="$(find . -name '*.h')"
