@@ -24,7 +24,7 @@ void panic(const char *fmt, ...)
 	vprintf(fmt, ap);
 	va_end(ap);
 
-	printf("\n\nKernel backtrace:\n");
+	printf("\n\nKernel backtrace:\n\n");
 	bt();
 	printf("\nBeginning subsystem teardown\n\n");
 	teardown_subsystems();
