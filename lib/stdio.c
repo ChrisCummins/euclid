@@ -206,10 +206,8 @@ int debug(const char *fmt, ...)
 	return ret;
 }
 #else
-__diagnostic_disable(unused-parameter)
 inline int debug(const char *fmt, ...)
 {
-return 0;
+	return 0;
 }
-__diagnostic_enable(unused-parameter)
 #endif /* NDEBUG */
