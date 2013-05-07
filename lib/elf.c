@@ -3,6 +3,7 @@
 #include <kernel/panic.h>
 
 #include <stddef.h>
+#include <stdio.h>
 
 const char *symbol_from_elf(struct elf *elf, u32 address) {
 	unsigned int i;
