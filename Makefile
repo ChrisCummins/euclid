@@ -24,6 +24,7 @@ QUIET   = $(QUIET_$(V))
 # names of common programs for portability
 export AS      := nasm
 export CC      := gcc
+export DOXYGEN := doxygen
 export LD      := ld
 export RM      := rm -f
 export SHELL   := /bin/bash
@@ -69,6 +70,8 @@ all: kernel
 kernel: k_build
 
 clean: k_clean
+
+docs: k_docs
 
 # Miscellaneous build targets.
 .PHONY: tags TAGS help

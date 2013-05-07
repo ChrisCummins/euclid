@@ -93,10 +93,11 @@ k_dirs = 				\
 		$(NULL)
 
 # Get the kernel source files from the directories defined in k_dirs
-k_c_sources   := $(shell find $(k_dirs) -name '*.c')
-k_asm_sources := $(shell find $(k_dirs) -name '*.s')
-k_headers     := $(shell find $(k_dirs) -name '*.h')
-k_objects     := $(patsubst %.s,%.o,$(k_asm_sources)) $(patsubst %.c,%.o,$(k_c_sources))
+k_c_sources      := $(shell find $(k_dirs) -name '*.c')
+k_asm_sources    := $(shell find $(k_dirs) -name '*.s')
+k_headers        := $(shell find $(k_dirs) -name '*.h')
+k_objects        := $(patsubst %.s,%.o,$(k_asm_sources)) $(patsubst %.c,%.o,$(k_c_sources))
+k_generated_docs := $(shell find Documentation/html Documentation/man Documentation/latex)
 
 # Check for a valid architecture or fail
 ifeq "$(wildcard $(ARCHDIR) )" ""
@@ -115,6 +116,9 @@ include arch/$(ARCH)/Makefile.$(ARCH)
 	@echo '  AS       $<'
 	$(QUIET)$(AS) $(K_ASFLAGS) $(EXTRA_K_ASFLAGS) -o $@ $<
 
+Documentation/html/index.html: $(k_c_sources) $(k_headers)
+	$(QUIET)$(DOXYGEN) scripts/doxygenrc
+
 $(K_TARGET): $(k_objects)
 	@echo '  LD       $@'
 	$(QUIET)$(LD) $(K_LDFLAGS) $(EXTRA_K_LDFLAGS) -o $(K_TARGET) $(k_objects)
@@ -123,4 +127,6 @@ $(K_TARGET): $(k_objects)
 k_build: k_build_arch $(K_TARGET)
 
 k_clean: k_clean_arch
-	$(QUIET)$(RM) $(k_objects) $(K_TARGET)
+	$(QUIET)$(RM) -r $(k_objects) $(K_TARGET) $(k_generated_docs)
+
+k_docs: Documentation/html/index.html
