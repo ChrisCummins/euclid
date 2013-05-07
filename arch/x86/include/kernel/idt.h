@@ -52,8 +52,6 @@ struct r {
 	u32 ss;       /* pushed by the processor automatically */
 };
 
-__diagnostic_disable(packed)
-
 /*
  * A single element in the IDT
  */
@@ -64,8 +62,6 @@ struct idesc {
 	u8 flags;       /* flags */
 	u16 base_hi;    /* the upper 16 bits of the address to jump to */
 } __attribute__((packed));
-
-__diagnostic_enable(packed)
 
 /*
  * An interrupt handler

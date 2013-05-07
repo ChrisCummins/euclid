@@ -10,8 +10,6 @@
 
 #define ELF32_ST_TYPE(i) ((i)&0xf)
 
-__diagnostic_disable(packed)
-
 struct elf_section {
 	u32 name;
 	u32 type;
@@ -33,8 +31,6 @@ struct elf_symbol {
 	u8 other;
 	u16 shndx;
 } __attribute__((packed));
-
-__diagnostic_enable(packed)
 
 struct elf {
 	struct elf_symbol *symtab;

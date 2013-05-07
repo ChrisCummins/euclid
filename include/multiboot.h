@@ -65,9 +65,6 @@
  *      86      | vbe_interface_len |
  *              +-------------------+
  */
-
-__diagnostic_disable(packed)
-
 struct multiboot {
 	u32 flags;
 	u32 mem_lower;
@@ -94,8 +91,6 @@ struct multiboot {
 	u32 vbe_interface_off;
 	u32 vbe_interface_len;
 }  __attribute__((packed));
-
-__diagnostic_enable(packed)
 
 /*
  * Flags for struct multiboot->flags.

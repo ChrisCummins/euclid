@@ -14,8 +14,6 @@ extern void flush_idt(u32);
 
 static int idt_initialised = 0;
 
-__diagnostic_disable(packed)
-
 /*
  * Pointer to the IDT
  */
@@ -23,8 +21,6 @@ static struct {
 	u16 limit;
 	u32 base;       /* the address of the first IDT element */
 } __attribute__((packed)) idt_ptr;
-
-__diagnostic_enable(packed)
 
 /* The Interrupt Descriptor Table (IDT) and Interrupt Vector Tables (IVT) */
 static struct idesc idt[256];

@@ -42,7 +42,6 @@ k_warnings =				\
 		no-main			\
 		no-unused-parameter	\
 		old-style-definition	\
-		packed			\
 		padded			\
 		redundant-decls		\
 		stack-usage=128		\

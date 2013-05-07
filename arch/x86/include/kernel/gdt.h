@@ -33,8 +33,6 @@
 #define SEGMENT_GRANULARITY_D      5
 #define SEGMENT_GRANULARITY_A      4
 
-__diagnostic_disable(packed)
-
 /*
  * A single element in the GDT
  */
@@ -46,8 +44,6 @@ struct sdesc {
 	u8 granularity;
 	u8 base_high;      /* the last 8 bits of the base */
 } __attribute__((packed));
-
-__diagnostic_enable(packed)
 
 /* Setup gdt subsystem */
 int init_gdt(void *data);
