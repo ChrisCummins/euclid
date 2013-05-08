@@ -250,21 +250,6 @@ struct multiboot {
 	u32 vbe_interface_len;
 }  __attribute__((packed));
 
-/*
- * Flags for struct multiboot->flags.
- */
-#define MULTIBOOT_FLAG_MEM       (1<<0)
-#define MULTIBOOT_FLAG_DEVICE    (1<<1)
-#define MULTIBOOT_FLAG_CMDLINE   (1<<2)
-#define MULTIBOOT_FLAG_MODS      (1<<3)
-#define MULTIBOOT_FLAG_AOUT      (1<<4)
-#define MULTIBOOT_FLAG_ELF       (1<<5)
-#define MULTIBOOT_FLAG_MMAP      (1<<6)
-#define MULTIBOOT_FLAG_CONFIG    (1<<7)
-#define MULTIBOOT_FLAG_LOADER    (1<<8)
-#define MULTIBOOT_FLAG_APM       (1<<9)
-#define MULTIBOOT_FLAG_VBE       (1<<10)
-
 /**
  * Return the elf structure containing the symbol information from a @ref
  * multiboot header.
