@@ -24,6 +24,7 @@ QUIET   = $(QUIET_$(V))
 # names of common programs for portability
 export AS      := nasm
 export CC      := gcc
+export CSCOPE  := cscope
 export DOXYGEN := doxygen
 export LD      := ld
 export RM      := rm -rf

@@ -119,6 +119,21 @@ endif
 # Load the Makefile specific to our target architecture
 include arch/$(ARCH)/Makefile.$(ARCH)
 
+# Generate database for the cscope tool
+tools/cscope/cscope.files: $(k_sources) $(k_headers)
+	$(QUIET)find $(PWD)						\
+		-path './arch/*' ! -path './$(ARCHDIR)*' -prune -o 	\
+		-type d \( 						\
+			-path "./.git" -o 				\
+			-path "./Documentation" -o 			\
+			-path "./scripts" -o 				\
+			-path "./tools"					\
+		\) -prune -o -name '*.[chsS]' -print > $@
+
+cscope: tools/cscope/cscope.files
+	@echo '  CSCOPE   tools/cscope/cscope.files'
+	$(QUIET)cd tools/cscope && $(CSCOPE) -b -q -k
+
 # Don't use the make built in targets
 %.o: %.c $(k_headers)
 	@echo '  CC       $<'
