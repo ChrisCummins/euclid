@@ -68,7 +68,18 @@ MRPROPER_FILES  = 					\
 		tags TAGS				\
 		$(NULL)
 
-DISTCLEAN_FILES = $(MRPROPER_FILES)
+DISTCLEAN_FILES = 					\
+		$(MRPROPER_FILES)			\
+		$(shell find .				\
+			-path './.git' -prune -o	\
+			! -name '*~' -a			\
+			! -name '.*.s[a-w][a-z]' -a	\
+			! -name '.\#*' -a		\
+			! -name 'Session.vim' -a	\
+			! -name '\#*\#' -a		\
+			! -name '*.patch' -o		\
+			-print)				\
+		$(NULL)
 
 # Load the kernel Makefile
 include scripts/Makefile.kernel
