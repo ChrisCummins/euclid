@@ -24,8 +24,10 @@ QUIET   = $(QUIET_$(V))
 # names of common programs for portability
 export AS      := nasm
 export CC      := gcc
+export CSCOPE  := cscope
+export DOXYGEN := doxygen
 export LD      := ld
-export RM      := rm -f
+export RM      := rm -rf
 export SHELL   := /bin/bash
 
 # Make rm verbosity match the build
@@ -58,6 +60,27 @@ endif
 
 export MAKEFLAGS
 
+# Clean files
+CLEAN_FILES     =
+
+MRPROPER_FILES  = 					\
+		$(CLEAN_FILES) 				\
+		tags TAGS				\
+		$(NULL)
+
+DISTCLEAN_FILES = 					\
+		$(MRPROPER_FILES)			\
+		$(shell find .				\
+			-path './.git' -prune -o	\
+			! -name '*~' -a			\
+			! -name '.*.s[a-w][a-z]' -a	\
+			! -name '.\#*' -a		\
+			! -name 'Session.vim' -a	\
+			! -name '\#*\#' -a		\
+			! -name '*.patch' -o		\
+			-print)				\
+		$(NULL)
+
 # Load the kernel Makefile
 include scripts/Makefile.kernel
 
@@ -68,7 +91,16 @@ all: kernel
 
 kernel: k_build
 
-clean: k_clean
+clean:
+	$(QUIET)$(RM) $(CLEAN_FILES)
+
+mrproper:
+	$(QUIET)$(RM) $(MRPROPER_FILES)
+
+distclean:
+	$(QUIET)$(RM) $(DISTCLEAN_FILES)
+
+docs: k_docs
 
 # Miscellaneous build targets.
 .PHONY: tags TAGS help

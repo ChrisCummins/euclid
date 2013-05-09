@@ -1,12 +1,20 @@
 #include <multiboot.h>
 
 #include <string.h>
+#include <macros.h>
+#include <stdio.h>
 
 void elf_from_mb(struct multiboot *mb, struct elf *elf)
 {
-	struct elf_section *section = (struct elf_section*)mb->addr;
-	u32 shstrtab = section[mb->shndx].addr;
+	struct elf_section *section;
+	u32 shstrtab;
 	unsigned int i;
+
+	return_if_fail(mb != NULL);
+	return_if_fail(elf != NULL);
+
+	section = (struct elf_section*)mb->addr;
+	shstrtab = section[mb->shndx].addr;
 
 	for (i = 0; i < mb->num; i++) {
 		const char *name = (const char *)(shstrtab + section[i].name);

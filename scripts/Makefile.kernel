@@ -93,10 +93,25 @@ k_dirs = 				\
 		$(NULL)
 
 # Get the kernel source files from the directories defined in k_dirs
-k_c_sources   := $(shell find $(k_dirs) -name '*.c')
-k_asm_sources := $(shell find $(k_dirs) -name '*.s')
-k_headers     := $(shell find $(k_dirs) -name '*.h')
-k_objects     := $(patsubst %.s,%.o,$(k_asm_sources)) $(patsubst %.c,%.o,$(k_c_sources))
+k_c_sources      := $(shell find $(k_dirs) -name '*.c' 2>/dev/null)
+k_asm_sources    := $(shell find $(k_dirs) -name '*.s' 2>/dev/null)
+k_sources        := $(k_asm_sources) $(k_c_sources)
+k_headers        := $(shell find $(k_dirs) -name '*.h' 2>/dev/null)
+k_objects        := $(patsubst %.s,%.o,$(k_asm_sources)) $(patsubst %.c,%.o,$(k_c_sources))
+k_generated_docs := $(shell find Documentation/html Documentation/man Documentation/latex 2>/dev/null)
+
+# Clean files
+CLEAN_FILES     +=			\
+		$(k_objects) 		\
+		$(k_generated_docs)	\
+		$(K_TARGET) 		\
+		$(NULL)
+
+MRPROPER_FILES  +=								\
+		$(shell find 'tools/cscope/' -name 'cscope.*' 2>/dev/null)	\
+		$(NULL)
+
+DISTCLEAN_FILES +=
 
 # Check for a valid architecture or fail
 ifeq "$(wildcard $(ARCHDIR) )" ""
@@ -105,6 +120,21 @@ endif
 
 # Load the Makefile specific to our target architecture
 include arch/$(ARCH)/Makefile.$(ARCH)
+
+# Generate database for the cscope tool
+tools/cscope/cscope.files: $(k_sources) $(k_headers)
+	$(QUIET)find $(PWD)						\
+		-path './arch/*' ! -path './$(ARCHDIR)*' -prune -o 	\
+		-type d \( 						\
+			-path "./.git" -o 				\
+			-path "./Documentation" -o 			\
+			-path "./scripts" -o 				\
+			-path "./tools"					\
+		\) -prune -o -name '*.[chsS]' -print > $@
+
+cscope: tools/cscope/cscope.files
+	@echo '  CSCOPE   tools/cscope/cscope.files'
+	$(QUIET)cd tools/cscope && $(CSCOPE) -b -q -k
 
 # Don't use the make built in targets
 %.o: %.c $(k_headers)
@@ -115,6 +145,9 @@ include arch/$(ARCH)/Makefile.$(ARCH)
 	@echo '  AS       $<'
 	$(QUIET)$(AS) $(K_ASFLAGS) $(EXTRA_K_ASFLAGS) -o $@ $<
 
+Documentation/html/index.html: $(k_sources) $(k_headers)
+	$(QUIET)$(DOXYGEN) scripts/doxygenrc
+
 $(K_TARGET): $(k_objects)
 	@echo '  LD       $@'
 	$(QUIET)$(LD) $(K_LDFLAGS) $(EXTRA_K_LDFLAGS) -o $(K_TARGET) $(k_objects)
@@ -122,5 +155,4 @@ $(K_TARGET): $(k_objects)
 # The main kernel build targets to be called from the top Makefile
 k_build: k_build_arch $(K_TARGET)
 
-k_clean: k_clean_arch
-	$(QUIET)$(RM) $(k_objects) $(K_TARGET)
+k_docs: Documentation/html/index.html

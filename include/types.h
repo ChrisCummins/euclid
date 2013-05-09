@@ -1,5 +1,8 @@
-/*
- * Kernel opaque data types.
+/**
+ * @file types.h
+ *
+ * Kernel opaque data types. This file contains definitions for the common data
+ * types in the kernel, some of which may be architecture-specific.
  */
 
 #ifndef _TYPES_H
