@@ -99,6 +99,17 @@ k_headers        := $(shell find $(k_dirs) -name '*.h')
 k_objects        := $(patsubst %.s,%.o,$(k_asm_sources)) $(patsubst %.c,%.o,$(k_c_sources))
 k_generated_docs := $(shell find Documentation/html Documentation/man Documentation/latex)
 
+# Clean files
+CLEAN_FILES     +=			\
+		$(k_objects) 		\
+		$(k_generated_docs)	\
+		$(K_TARGET) 		\
+		$(NULL)
+
+MRPROPER_FILES  +=
+
+DISTCLEAN_FILES +=
+
 # Check for a valid architecture or fail
 ifeq "$(wildcard $(ARCHDIR) )" ""
   $(error target architecture '$(ARCH)' does not exist)
@@ -125,8 +136,5 @@ $(K_TARGET): $(k_objects)
 
 # The main kernel build targets to be called from the top Makefile
 k_build: k_build_arch $(K_TARGET)
-
-k_clean: k_clean_arch
-	$(QUIET)$(RM) -r $(k_objects) $(K_TARGET) $(k_generated_docs)
 
 k_docs: Documentation/html/index.html

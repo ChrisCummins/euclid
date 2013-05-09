@@ -26,7 +26,7 @@ export AS      := nasm
 export CC      := gcc
 export DOXYGEN := doxygen
 export LD      := ld
-export RM      := rm -f
+export RM      := rm -rf
 export SHELL   := /bin/bash
 
 # Make rm verbosity match the build
@@ -59,6 +59,13 @@ endif
 
 export MAKEFLAGS
 
+# Clean files
+CLEAN_FILES     =
+
+MRPROPER_FILES  = $(CLEAN_FILES) tags TAGS
+
+DISTCLEAN_FILES = $(MRPROPER_FILES)
+
 # Load the kernel Makefile
 include scripts/Makefile.kernel
 
@@ -69,7 +76,14 @@ all: kernel
 
 kernel: k_build
 
-clean: k_clean
+clean:
+	$(QUIET)$(RM) $(CLEAN_FILES)
+
+mrproper:
+	$(QUIET)$(RM) $(MRPROPER_FILES)
+
+distclean:
+	$(QUIET)$(RM) $(DISTCLEAN_FILES)
 
 docs: k_docs
 
