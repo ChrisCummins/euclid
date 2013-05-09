@@ -93,11 +93,11 @@ k_dirs = 				\
 		$(NULL)
 
 # Get the kernel source files from the directories defined in k_dirs
-k_c_sources      := $(shell find $(k_dirs) -name '*.c')
-k_asm_sources    := $(shell find $(k_dirs) -name '*.s')
-k_headers        := $(shell find $(k_dirs) -name '*.h')
+k_c_sources      := $(shell find $(k_dirs) -name '*.c' 2>/dev/null)
+k_asm_sources    := $(shell find $(k_dirs) -name '*.s' 2>/dev/null)
+k_headers        := $(shell find $(k_dirs) -name '*.h' 2>/dev/null)
 k_objects        := $(patsubst %.s,%.o,$(k_asm_sources)) $(patsubst %.c,%.o,$(k_c_sources))
-k_generated_docs := $(shell find Documentation/html Documentation/man Documentation/latex)
+k_generated_docs := $(shell find Documentation/html Documentation/man Documentation/latex 2>/dev/null)
 
 # Clean files
 CLEAN_FILES     +=			\
