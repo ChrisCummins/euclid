@@ -107,7 +107,9 @@ CLEAN_FILES     +=			\
 		$(K_TARGET) 		\
 		$(NULL)
 
-MRPROPER_FILES  +=
+MRPROPER_FILES  +=								\
+		$(shell find 'tools/cscope/' -name 'cscope.*' 2>/dev/null)	\
+		$(NULL)
 
 DISTCLEAN_FILES +=
 

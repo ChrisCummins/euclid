@@ -63,7 +63,10 @@ export MAKEFLAGS
 # Clean files
 CLEAN_FILES     =
 
-MRPROPER_FILES  = $(CLEAN_FILES) tags TAGS
+MRPROPER_FILES  = 					\
+		$(CLEAN_FILES) 				\
+		tags TAGS				\
+		$(NULL)
 
 DISTCLEAN_FILES = $(MRPROPER_FILES)
 
