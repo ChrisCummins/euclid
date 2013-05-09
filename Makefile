@@ -122,5 +122,6 @@ help:
 	@echo '  all              - Build all targets marked with [*]'
 	@echo '  kernel           - Build the bare kernel'
 	@echo '  tags/TAGS        - Generate tags file for editors'
+	@echo '  cscope           - Generate database files for cscope'
 	@echo ''
 	@echo '  make V=0|1 [targets] 0 => quiet build (default), 1 => verbose build'
