@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #
 #	mount-image.sh - Mount the boot image
 #
